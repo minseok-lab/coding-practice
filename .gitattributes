@@ -1,1 +1,8 @@
+# 특정 데이터 파일이나 문서 제외
+*.md linguist-documentation=true
+
+# 언어의 감지를 확실히 보장
+*.cpp linguist-detectable=true
+*.py linguist-detectable=true
 *.sql linguist-detectable=true
+*.js linguist-detectable=true
