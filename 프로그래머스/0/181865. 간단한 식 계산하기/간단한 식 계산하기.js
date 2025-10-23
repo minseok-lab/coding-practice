@@ -4,7 +4,7 @@ function solution(binomial) {
     if (splitBinomial[1] === "+") {
         answer = Number(splitBinomial[0]) + Number(splitBinomial[2]);
     } else if (splitBinomial[1] === "-") {
-        answer = Number(splitBinomial[0]) - Number(splitBinomial[2]);
+        answer = splitBinomial[0] - splitBinomial[2];
     } else {
         answer = splitBinomial[0] * splitBinomial[2];
     }
