@@ -1,0 +1,29 @@
+-- 1. 2022년 3월의 온라인 판매 데이터를 선택
+SELECT
+    TO_CHAR(SALES_DATE, 'YYYY-MM-DD') AS SALES_DATE,
+    PRODUCT_ID,
+    USER_ID,
+    SALES_AMOUNT
+FROM
+    ONLINE_SALE
+WHERE
+    TO_CHAR(SALES_DATE, 'YYYY-MM') = '2022-03'
+
+UNION ALL -- 2. 두 테이블의 결과를 위아래로 합칩니다.
+
+-- 3. 2022년 3월의 오프라인 판매 데이터를 선택 (USER_ID는 NULL로)
+SELECT
+    TO_CHAR(SALES_DATE, 'YYYY-MM-DD') AS SALES_DATE,
+    PRODUCT_ID,
+    NULL AS USER_ID,
+    SALES_AMOUNT
+FROM
+    OFFLINE_SALE
+WHERE
+    TO_CHAR(SALES_DATE, 'YYYY-MM') = '2022-03'
+
+-- 최종 결과를 정렬
+ORDER BY
+    SALES_DATE ASC,
+    PRODUCT_ID ASC,
+    USER_ID ASC;
