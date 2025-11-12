@@ -1,0 +1,52 @@
+name: Organize Codetree Files
+
+on:
+  push:
+    branches:
+      - main # main 브랜치에 push 될 때만 실행
+
+jobs:
+  organize-files:
+    runs-on: ubuntu-latest
+    # 커밋 메시지에 'Codetree'가 포함된 경우에만 실행
+    # (Title: ... - Codetree" 와 "Add a record..." 둘 다 해당됨)
+    if: contains(github.event.head_commit.message, 'Codetree')
+    
+    steps:
+      # 1. 레포지토리 코드를 가져옴
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # git push를 위해 GITHUB_TOKEN이 필요합니다.
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # 2. 루트에 생성된 숫자 폴더를 Codetree/ 폴더로 이동
+      - name: Move Codetree problem folders
+        run: |
+          # Codetree/ 폴더가 없으면 생성
+          mkdir -p Codetree
+          
+          shopt -s nullglob # 일치하는 파일이 없을 때 오류 방지
+          moved_something=0
+          
+          # 현재 위치(.)에서 깊이 1의(-maxdepth 1) 디렉터리(-type d)를 찾습니다.
+          # 이름이 숫자로만(^[0-9]+$) 이루어진 폴더가 대상입니다.
+          # (예: '251110', '251112' 등)
+          for dir in *; do
+            if [[ -d "$dir" && "$dir" =~ ^[0-9]+$ ]]; then
+              echo "Moving directory '$dir' to 'Codetree/'"
+              # Git이 이동을 추적하도록 git mv 사용
+              git mv "$dir" "Codetree/"
+              moved_something=1
+            fi
+          done
+          
+          if [ $moved_something -eq 0 ]; then
+            echo "No new root-level Codetree folders to move."
+          fi
+
+      # 3. 변경사항(파일 이동)을 자동으로 커밋하고 푸시
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "auto: Organize Codetree files into subfolder"
