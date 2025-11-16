@@ -1,16 +1,20 @@
 name: Organize Codetree Files
 
 on:
-  push:
-    branches:
-      - main 
-
+  schedule:
+    # [수정] 매일 KST 00:00 (자정)에 실행 (UTC 기준 15:00)
+    # 깃허브 스케줄은 약간의 지연이 있을 수 있습니다.
+    - cron: '0 15 * * *'
+  workflow_dispatch:
+    # [추가] 깃허브 Actions 탭에서 'Run workflow' 버튼으로 수동 실행 가능
+    
 jobs:
   organize-files:
     runs-on: ubuntu-latest
     permissions:
       contents: write # git push를 위한 권한
-    if: contains(github.event.head_commit.message, 'Codetree')
+    # [제거] 'if: contains(...)' 조건을 삭제했습니다.
+    # 스케줄 실행은 특정 커밋 메시지가 없으므로, 조건 없이 매번 실행되어야 합니다.
     
     steps:
       - name: Checkout repository
