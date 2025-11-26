@@ -5,13 +5,13 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int sum = 0;
-        int num = 1;
-
-        while (sum <= n) {
-            sum += num;
-            num++;
+        
+        for (int i = 1; i <= 100; i++) {
+            sum += i;
+            if (sum >= n) {
+                System.out.print(i);
+                break;
+            }
         }
-
-        System.out.print(num - 1);
     }
 }
