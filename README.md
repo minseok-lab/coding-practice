@@ -15,5 +15,7 @@ This is an auto push repository for Programmers, Baekjoon Online Judge, Codetree
 🎉 LV.4 문제 풀이 완료 (2025-11-11)
 
 ## CodeTree
+🎉 Trail 0. 문제 풀이 완료 (2025-12-05)
+
 
 ## Beakjoon
