@@ -6,7 +6,7 @@ public class Main {
         double a = 9.2;
         double b = 1.3;
 
-        System.out.println(a + "ft = " + (a * ft) + "cm");
-        System.out.println(b + "mi = " + (b * mi) + "cm");
+        System.out.printf("%.1fft = %.1fcm%n", a, a * ft);
+        System.out.printf("%.1fmi = %.1fcm%n", b, b * mi);
     }
 }
